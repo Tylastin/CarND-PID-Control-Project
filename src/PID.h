@@ -30,7 +30,12 @@ class PID {
    * @output The total PID error
    */
   double TotalError();
-
+  /**
+  * Calculate the PID output value.
+  * @output The PID output value
+  */
+  double CalculateOutput();
+    
  private:
   /**
    * PID Errors

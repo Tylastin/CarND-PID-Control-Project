@@ -37,3 +37,7 @@ double PID::TotalError() {
    */
   return p_error+ i_error + d_error;  
 }
+
+double PID::CalculateOutput() { 
+  return -1*(Kp * p_error + Ki * i_error + Kd * d_error);
+} 
