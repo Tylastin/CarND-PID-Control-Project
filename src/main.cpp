@@ -38,19 +38,21 @@ int main() {
    * Initialize the pid variable.
    */
   double Kp, Ki, Kd;
-  Kp = 0;
+  Kp = 0.25;
   Ki = 0;
   Kd = 0;
   pid.Init(Kp, Ki, Kd);
 
+  
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, 
                      uWS::OpCode opCode) {
+      
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
     if (length && length > 2 && data[0] == '4' && data[1] == '2') {
       auto s = hasData(string(data).substr(0, length));
-
+	  
       if (s != "") {
         auto j = json::parse(s);
 
@@ -62,12 +64,16 @@ int main() {
           double speed = std::stod(j[1]["speed"].get<string>());
           double angle = std::stod(j[1]["steering_angle"].get<string>());
           double steer_value;
+          const double dt = 0.02; //cycle time
           /**
            * TODO: Calculate steering value here, remember the steering value is
            *   [-1, 1].
            * NOTE: Feel free to play around with the throttle and speed.
            *   Maybe use another PID controller to control the speed!
            */
+          std::cout << "angle:" << angle << std::endl;
+		  pid.UpdateError(cte, dt);
+          steer_value = pid.CalculateOutput();
           
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value 
