@@ -73,7 +73,7 @@ int main() {
            */
           std::cout << "angle:" << angle << std::endl;
 		  pid.UpdateError(cte, dt);
-          steer_value = pid.CalculateOutput();
+          steer_value = deg2rad(pid.CalculateOutput());
           
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value 
