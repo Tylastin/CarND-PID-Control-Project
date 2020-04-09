@@ -25,10 +25,9 @@ void PID::UpdateError(double cte) {
   /**
    * Update PID errors based on cte.
    */
-  double cte_2 = cte*cte;
-  p_error += cte_2;
-  i_error += cte_2;
-  d_error += cte_2;
+  d_error = cte - p_error;
+  i_error += cte;
+  p_error = cte;
 
 }
 
