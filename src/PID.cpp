@@ -21,12 +21,13 @@ void PID::Init(double Kp_, double Ki_, double Kd_) {
 
 }
 
-void PID::UpdateError(double cte, double dt) {
+void PID::UpdateError(double cte) {
   /**
    * Update PID errors based on cte.
    */
+  const double dt = 0.02; //cycle time
   d_error = (cte - p_error)/dt;
-  i_error += cte*dt;
+  i_error += cte * dt;
   p_error = cte;
 
 }
@@ -35,9 +36,6 @@ double PID::TotalError() {
   /**
    * Calculate and return the total error
    */
-  return p_error+ i_error + d_error;  
+  return Kp * p_error + Ki * i_error + Kd * d_error;
 }
 
-double PID::CalculateOutput() { 
-  return -1*(Kp * p_error + Ki * i_error + Kd * d_error);
-} 

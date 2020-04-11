@@ -38,9 +38,11 @@ int main() {
    * Initialize the pid variable.
    */
   double Kp, Ki, Kd;
-  Kp = 0.25;
+  Kp = 3.5;
   Ki = 0;
-  Kd = 0;
+  Kd = 0.35;
+  
+
   pid.Init(Kp, Ki, Kd);
 
   
@@ -64,7 +66,7 @@ int main() {
           double speed = std::stod(j[1]["speed"].get<string>());
           double angle = std::stod(j[1]["steering_angle"].get<string>());
           double steer_value;
-          const double dt = 0.02; //cycle time
+
           /**
            * TODO: Calculate steering value here, remember the steering value is
            *   [-1, 1].
@@ -72,8 +74,8 @@ int main() {
            *   Maybe use another PID controller to control the speed!
            */
           std::cout << "angle:" << angle << std::endl;
-		  pid.UpdateError(cte, dt);
-          steer_value = deg2rad(pid.CalculateOutput());
+		  pid.UpdateError(cte);
+          steer_value = deg2rad(-pid.TotalError());
           
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value 
