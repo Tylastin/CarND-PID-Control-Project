@@ -38,9 +38,9 @@ int main() {
    * Initialize the pid variable.
    */
   double Kp, Ki, Kd;
-  Kp = 3.5;
+  Kp = 0.12;
   Ki = 0;
-  Kd = 0.35;
+  Kd = 0.025;
   
 
   pid.Init(Kp, Ki, Kd);
@@ -75,7 +75,7 @@ int main() {
            */
           std::cout << "angle:" << angle << std::endl;
 		  pid.UpdateError(cte);
-          steer_value = deg2rad(-pid.TotalError());
+          steer_value = -pid.TotalError();
           
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value 
@@ -83,7 +83,7 @@ int main() {
 
           json msgJson;
           msgJson["steering_angle"] = steer_value;
-          msgJson["throttle"] = 0.3;
+          msgJson["throttle"] = 0.25;
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
           std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
