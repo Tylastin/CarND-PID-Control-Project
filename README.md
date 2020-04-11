@@ -95,20 +95,22 @@ still be compilable with cmake and make./
 
 
 ## Reflection
-##### Final Parameter Values
+#### Final Parameter Values
 The final parameter values were
 | Parameter | Value         | 
 | :----------:|:-------------:| 
 | Kp        | 0.12 | 
 | Ki        | 0       | 
 | Kd        | 0.025      |   
-##### Role of Each PID Component
+#### Role of Each PID Component
 
 Proportional (Kp): This component the serves the primary role of correcting in proportion to the immediate error value.
+
 Integral (Ki): This component the serves the primary role of correcting for systematic bias such as steering drift. 
+
 Derivative (Kp): This component the serves the primary role of damping oscillations and preventing overshoot.
-##### Tuning Process
-__The parameters were tuned empirically:__
+#### Tuning Process
+__Empirical Tuning Process:__
 * The Kp value was increased in an attempt to strengthen the corrective power of the control enough to make the sharpest turns on the track. 
 * As Kp was increased oscillations would occur, so Kd would be increased to dampen the oscillations. 
 * The optimal Ki value was found to be zero, because the simulator car does not seem to have any sources of systematic bias.  
@@ -119,9 +121,9 @@ __Discovered Parameter Constraints:__
 * If the value of Kp was too high relative to the speed then the car would be able to stay on the track but the steering angle would reach values that were too high to be safe and comfortable. 
 * If the vaule of Kp was too low relative to the speed then sharp turns were not feasible because CTE correction was not fast enough.
 
-##### Conclusion
-The current paramter values are optimized for traversing the simulator track at a fixed speed (just under 30mph). The "final pid.mov" file in the project folder shows the PID's performance under the given conditions. 
+#### Conclusion
+The current paramter values are optimized for traversing the simulator track at a fixed speed (just under 30mph). The "final pid.mp4" file in the project folder shows the PID's performance under these conditions. 
 
 If the speed or the track were changed then the paramters would likely have to be re-tuned. The experimental parameter contraints outlined would be relevant under the new conditions, so they could be used to effectively re-tune the parameters.
 
-To make the control more robust, instead of using a fixed throttle, another PID could be added to control throttle, which would make the driving more versatile and human-like.  
+To make the control more robust, instead of using a fixed throttle, another PID could be added to control throttle, which would make the driving more versatile and human-like.
