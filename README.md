@@ -109,13 +109,13 @@ Proportional (Kp): This component the serves the primary role of correcting in p
 Integral (Ki): This component the serves the primary role of correcting for systematic bias such as steering drift. 
 
 Derivative (Kp): This component the serves the primary role of damping oscillations and preventing overshoot.
-#### Tuning Process
-__Empirical Tuning Process:__
+
+#### Empirical Tuning Process:
 * The Kp value was increased in an attempt to strengthen the corrective power of the control enough to make the sharpest turns on the track. 
 * As Kp was increased oscillations would occur, so Kd would be increased to dampen the oscillations. 
 * The optimal Ki value was found to be zero, because the simulator car does not seem to have any sources of systematic bias.  
 
-__Discovered Parameter Constraints:__
+#### Discovered Parameter Constraints:
 * If Kd was too high relative to Kp then the controller would become too slow and sharp turns could no longer be made. 
 * If Kp was too high relavtive to Kd then it would begin oscillating again. 
 * If the value of Kp was too high relative to the speed then the car would be able to stay on the track but the steering angle would reach values that were too high to be safe and comfortable. 
