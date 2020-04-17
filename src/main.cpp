@@ -42,10 +42,8 @@ int main() {
   Ki = 0;
   Kd = 0.025;
   
-
   pid.Init(Kp, Ki, Kd);
 
-  
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, 
                      uWS::OpCode opCode) {
       
@@ -67,15 +65,12 @@ int main() {
           double angle = std::stod(j[1]["steering_angle"].get<string>());
           double steer_value;
 
-          /**
-           * TODO: Calculate steering value here, remember the steering value is
-           *   [-1, 1].
-           * NOTE: Feel free to play around with the throttle and speed.
-           *   Maybe use another PID controller to control the speed!
-           */
+		  const double dt = 0.02; //cycle time
+          
+          // Calculate steering value. The steering value is [-1, 1].
           std::cout << "angle:" << angle << std::endl;
-		  pid.UpdateError(cte);
-          steer_value = -pid.TotalError();
+		  pid.UpdateError(cte, dt);
+          steer_value = pid.TotalError();
           
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value 
@@ -88,7 +83,9 @@ int main() {
           std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
         }  // end "telemetry" if
-      } else {
+      } 
+      else 
+      {
         // Manual driving
         string msg = "42[\"manual\",{}]";
         ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
@@ -109,7 +106,8 @@ int main() {
   int port = 4567;
   if (h.listen(port)) {
     std::cout << "Listening to port " << port << std::endl;
-  } else {
+  } 
+  else {
     std::cerr << "Failed to listen to port" << std::endl;
     return -1;
   }

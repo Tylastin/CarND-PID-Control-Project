@@ -1,7 +1,7 @@
 #include "PID.h"
 
 /**
- * TODO: Complete the PID class. You may add any additional desired functions.
+ * PID class
  */
 
 PID::PID() {}
@@ -21,11 +21,10 @@ void PID::Init(double Kp_, double Ki_, double Kd_) {
 
 }
 
-void PID::UpdateError(double cte) {
+void PID::UpdateError(double cte, double dt) {
   /**
-   * Update PID errors based on cte.
-   */
-  const double dt = 0.02; //cycle time
+   * Update PID errors based on cte and elapsed time. 
+   */  
   d_error = (cte - p_error)/dt;
   i_error += cte * dt;
   p_error = cte;
@@ -36,6 +35,6 @@ double PID::TotalError() {
   /**
    * Calculate and return the total error
    */
-  return Kp * p_error + Ki * i_error + Kd * d_error;
+  return -(Kp * p_error + Ki * i_error + Kd * d_error);
 }
 
