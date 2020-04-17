@@ -3,7 +3,7 @@ In this project, a C++ implentation of a PID is used to steer a simulator car ar
 
 
 ## Demo
-A demo of the pid controller running in a simulator can be found in the "final_pid.mov" file. 
+A demo of the pid controller running in the simulator can be found [here](./final_pid.mov).
 
 ![PID running in simulator](pid_sim_img.png)
 
